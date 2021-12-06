@@ -1,2 +1,0 @@
-# devoria-go-clean-architechure
-
