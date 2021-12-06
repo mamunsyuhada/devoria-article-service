@@ -4,25 +4,25 @@ services:
       # https://citizix.com/how-to-run-redis-6-with-docker-and-docker-compose/
       image: redis:6.2-alpine
       container_name: redis
-      restart: always
+      restart: on-failure
       ports:
         - '6379:6379'
-      command: redis-server --save 60 1 --requirepass MDNcVb924a --loglevel warning
-   mysql:
-      image: mysql:8.0
-      container_name: mysql
-      restart: always
+      command: redis-server --save 60 1 --requirepass xxxxxxxx --loglevel warning
+   mariadb:
+      image: mariadb:10.2
+      container_name: mariadb
+      restart: on-failure
       ports:
          - '3306:3306'
       environment:
          MYSQL_ROOT_PASSWORD: bds29
    phpmyadmin:
       depends_on:
-         - db
+         - mariadb
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
-      restart: always
+      restart: on-failure
       ports:
          - '8899:80'
       environment:
-         PMA_HOST: db
+         PMA_HOST: mariadb
